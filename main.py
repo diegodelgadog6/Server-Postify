@@ -1,13 +1,19 @@
 from fastapi import FastAPI
 from scalar_fastapi import get_scalar_api_reference
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import users
 
-app = FastAPI()
+from app.routers import users
+from app.db.__init__db import init_db
+
+async def lifespan(app: FastAPI):
+    await init_db()
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allowed_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173"],
 )
 
 app.include_router(users.router)

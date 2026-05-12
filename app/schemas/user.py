@@ -1,5 +1,6 @@
-import datetime
-from sqlmodel import SQLModel, Field
+import uuid
+from datetime import datetime
+from sqlmodel import SQLModel
 
 class UserCreate(SQLModel):
     username: str

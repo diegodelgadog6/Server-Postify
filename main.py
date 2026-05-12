@@ -1,8 +1,16 @@
 from fastapi import FastAPI
 from scalar_fastapi import get_scalar_api_reference
+from fastapi.middleware.cors import CORSMiddleware
+from app.routers import users
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allowed_origins=["http://localhost:5173"],
+)
+
+app.include_router(users.router)
 
 @app.get("/")
 async def root():

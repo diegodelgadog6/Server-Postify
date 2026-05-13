@@ -1,7 +1,7 @@
 
 from datetime import datetime
 import uuid
-from sqlmodel import SQLModel, Field
+from sqlmodel import Relationship, SQLModel, Field
 
 class User(SQLModel, table=True):
     __tablename__ = "users"
@@ -13,3 +13,5 @@ class User(SQLModel, table=True):
     email: str = Field(unique=True, index=True)
     password: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+    posts: list["Post"] = Relationship(back_populates="user")

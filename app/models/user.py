@@ -14,4 +14,4 @@ class User(SQLModel, table=True):
     password: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-    posts: list["Post"] = Relationship(back_populates="user")
+    posts: list["Post"] = Relationship(back_populates="user", cascade_delete=True)
